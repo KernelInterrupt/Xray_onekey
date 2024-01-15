@@ -245,7 +245,7 @@ apt install fping
     print_ok "已关闭 wgcf-warp"
   fi
   local_ipv4=$(curl -4 ip.sb)
-  local_ipv6=$(curl -6 ip.sb)
+  local_ipv6=$(curl 6.ipw.cn)
   if [[ -z ${local_ipv4} && -n ${local_ipv6} ]]; then
     # 纯IPv6 VPS，自动添加DNS64服务器以备acme.sh申请证书使用
     echo -e nameserver 2a01:4f8:c2c:123f::1 > /etc/resolv.conf
@@ -255,10 +255,10 @@ apt install fping
   echo -e "本机公网 IPv4 地址： ${local_ipv4}"
   echo -e "本机公网 IPv6 地址： ${local_ipv6}"
   sleep 2
-  if [[ ${domain_ip} == "${local_ipv4}" ]]; then
+  if [[ "${domain_ip}" == "${local_ipv4}" ]]; then
     print_ok "域名通过 DNS 解析的 IP 地址与 本机 IPv4 地址匹配"
     sleep 2
-  elif [[ ${domain_ip} == "${local_ipv6}" ]]; then
+  elif [[ "${domain_ip}" == "${local_ipv6}" ]]; then
     print_ok "域名通过 DNS 解析的 IP 地址与 本机 IPv6 地址匹配"
     sleep 2
   else
