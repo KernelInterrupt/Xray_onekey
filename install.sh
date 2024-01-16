@@ -234,8 +234,7 @@ function basic_optimization() {
 function domain_check() {
 apt install fping
   read -rp "请输入你的域名信息(eg: www.wulabing.com):" domain
-  domain_ip=$(fping -A -4 "${domain}")
-  domain_ip=${domain_ip%is*}
+  domain_ip=`ping ${domain} -c 1 | sed '1{s/[^(]*(//;s/).*//;q}' | sed '1{s/[^(]*(//;s/).*//;q}'`
   print_ok "正在获取 IP 地址信息，请耐心等待"
   wgcfv4_status=$(curl -s4m8 https://www.cloudflare.com/cdn-cgi/trace -k | grep warp | cut -d= -f2)
   wgcfv6_status=$(curl -s6m8 https://www.cloudflare.com/cdn-cgi/trace -k | grep warp | cut -d= -f2)
